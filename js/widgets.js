@@ -23,7 +23,6 @@ const Widgets = (() => {
       <div class="widget" id="${widgetId}" data-cat-id="${cat.id}" draggable="true">
         <div class="widget-header" ondblclick="Schema.openCategoryEditor(State.getCategory('${cat.id}'))">
           <div class="widget-header-left">
-            <span class="widget-icon">${cat.icon}</span>
             <span class="widget-title">${cat.name}</span>
             <span class="widget-badge">${items.length}</span>
           </div>
@@ -560,7 +559,7 @@ const Widgets = (() => {
       text = `${Math.abs(days)}d πριν!`;
     } else if (days === 0) {
       cls = "urgent";
-      text = "Σήμερα!";
+      text = "Today";
     } else if (days <= 3) {
       cls = "soon";
       text = `${days}d`;

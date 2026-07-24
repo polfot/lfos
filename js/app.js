@@ -257,7 +257,7 @@ const App = (() => {
     let html = Today.render();
 
     // Widgets for each category
-    html += '<div id="widgets-container" style="padding:0 var(--space-lg)">';
+    html += '<div id="widgets-container" style="padding:0">';
     for (const cat of categories) {
       if (cat.visible === false) continue;
       const items = allItems[cat.id] || [];

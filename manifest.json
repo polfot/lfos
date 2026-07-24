@@ -2,7 +2,7 @@
   "name": "Life OS",
   "short_name": "LifeOS",
   "description": "Personal life dashboard & organizer",
-  "start_url": "/",
+  "start_url": "/lfos/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
