@@ -1,0 +1,183 @@
+/* ============================================
+   Life OS — Travel Map Styles
+   ============================================ */
+
+/* Filter buttons */
+.map-filters {
+  display: flex;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+}
+
+.map-filter-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border-medium);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: var(--font-xs);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.map-filter-btn.active {
+  color: #fff;
+}
+
+.map-filter-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+/* Custom pin */
+.map-pin-custom {
+  background: none !important;
+  border: none !important;
+}
+
+.map-pin {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  overflow: hidden;
+}
+
+.map-pin-photo {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.map-pin-arrow {
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid;
+  margin: 0 auto;
+}
+
+/* Popup */
+.map-popup-container .leaflet-popup-content-wrapper {
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  padding: 0;
+  overflow: hidden;
+}
+
+.map-popup-container .leaflet-popup-content {
+  margin: 0;
+  min-width: 180px;
+}
+
+.map-popup-container .leaflet-popup-tip {
+  box-shadow: none;
+}
+
+.map-popup {
+  overflow: hidden;
+}
+
+.map-popup-photo {
+  width: 100%;
+  height: 140px;
+  background-size: cover;
+  background-position: center;
+}
+
+.map-popup-body {
+  padding: 10px 14px 12px;
+}
+
+.map-popup-body strong {
+  font-size: 14px;
+  color: #455546;
+}
+
+.map-popup-status {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+/* Stats bar */
+.map-stats {
+  display: flex;
+  justify-content: space-around;
+  padding: var(--space-md) 0;
+  margin-top: var(--space-sm);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.map-stat {
+  text-align: center;
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.map-stat-num {
+  display: block;
+  font-size: var(--font-xl);
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+/* Tooltip */
+.map-tooltip {
+  background: #455546 !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 4px 10px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+}
+
+.map-tooltip::before {
+  border-top-color: #455546 !important;
+}
+
+/* Map view toggle */
+.map-toggle {
+  display: flex;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-md);
+}
+
+.map-toggle-btn {
+  flex: 1;
+  padding: var(--space-sm);
+  border: 1.5px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: var(--font-xs);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.map-toggle-btn.active {
+  background: var(--accent-dark);
+  color: #fff;
+  border-color: var(--accent-dark);
+}

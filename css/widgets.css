@@ -1,0 +1,569 @@
+/* ============================================
+   Life OS — Widget Styles
+   ============================================ */
+
+/* --- Widget card --- */
+.widget {
+  background: var(--bg-surface);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-md);
+  overflow: hidden;
+  animation: fadeIn 0.3s var(--ease-out) forwards;
+  border: 1px solid var(--border-subtle);
+}
+
+.widget.dragging {
+  opacity: 0.5;
+  transform: scale(0.97);
+}
+
+.widget.drag-over {
+  border-color: var(--accent-primary);
+  border-style: dashed;
+}
+
+.widget-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-md) var(--space-lg);
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.widget-header:active {
+  cursor: grabbing;
+}
+
+.widget-header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.widget-icon {
+  font-size: 18px;
+}
+
+.widget-title {
+  font-size: var(--font-md);
+  font-weight: 700;
+}
+
+.widget-badge {
+  background: var(--bg-card-hover);
+  color: var(--text-secondary);
+  font-size: var(--font-xs);
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-left: var(--space-sm);
+}
+
+.widget-actions {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.widget-body {
+  padding: 0 var(--space-lg) var(--space-lg);
+}
+
+.widget.collapsed .widget-body {
+  display: none;
+}
+
+/* --- Generic item row --- */
+.item-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  background: var(--bg-card);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-sm);
+  transition: background var(--duration-fast);
+}
+
+.item-row:active {
+  background: var(--bg-card-hover);
+}
+
+.item-row.done {
+  opacity: 0.5;
+}
+
+.item-row .item-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.item-row .item-title {
+  font-size: var(--font-md);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-row .item-subtitle {
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.item-row .item-time {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.item-row .item-actions {
+  display: flex;
+  gap: var(--space-xs);
+  opacity: 0;
+  transition: opacity var(--duration-fast);
+}
+
+.item-row:hover .item-actions,
+.item-row:focus-within .item-actions {
+  opacity: 1;
+}
+
+/* On mobile, always show actions */
+@media (hover: none) {
+  .item-row .item-actions {
+    opacity: 1;
+  }
+}
+
+/* --- Checkbox custom --- */
+.checkbox {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 2px solid var(--border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all var(--duration-fast);
+  font-size: 12px;
+  color: transparent;
+}
+
+.checkbox.checked {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: #fff;
+}
+
+.checkbox.priority-high { border-color: var(--priority-high); }
+.checkbox.priority-high.checked { background: var(--priority-high); border-color: var(--priority-high); }
+.checkbox.priority-medium { border-color: var(--priority-medium); }
+.checkbox.priority-medium.checked { background: var(--priority-medium); border-color: var(--priority-medium); }
+.checkbox.priority-low { border-color: var(--priority-low); }
+.checkbox.priority-low.checked { background: var(--priority-low); border-color: var(--priority-low); }
+
+/* --- Rating stars --- */
+.rating {
+  display: flex;
+  gap: 2px;
+}
+
+.rating .star {
+  font-size: 18px;
+  cursor: pointer;
+  color: var(--text-tertiary);
+  transition: color var(--duration-fast);
+}
+
+.rating .star.active {
+  color: var(--accent-orange);
+}
+
+/* --- Progress bar --- */
+.progress-bar {
+  height: 6px;
+  background: var(--bg-card);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-bar .progress-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--accent-primary);
+  transition: width 0.4s var(--ease-out);
+}
+
+/* --- Mood indicator dot --- */
+.mood-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.mood-dot.mood-bad { background: var(--mood-bad); }
+.mood-dot.mood-ok { background: var(--mood-ok); }
+.mood-dot.mood-good { background: var(--mood-good); }
+
+/* --- Habit grid --- */
+.habit-grid {
+  display: flex;
+  gap: 4px;
+  justify-content: space-between;
+}
+
+.habit-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.habit-day .day-label {
+  font-size: var(--font-xs);
+  color: var(--text-tertiary);
+}
+
+.habit-day .day-cell {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: transparent;
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.habit-day .day-cell.today {
+  border: 2px solid var(--accent-primary);
+}
+
+.habit-day .day-cell.done {
+  background: var(--accent-primary);
+  color: #fff;
+}
+
+/* --- Streak badge --- */
+.streak-badge {
+  font-size: var(--font-xs);
+  font-weight: 700;
+  color: var(--accent-orange);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* --- Expense summary --- */
+.expense-summary {
+  text-align: center;
+  padding: var(--space-lg);
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-md);
+}
+
+.expense-total {
+  font-size: var(--font-2xl);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.expense-label {
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-xs);
+}
+
+.expense-bar {
+  display: flex;
+  gap: 2px;
+  border-radius: 4px;
+  overflow: hidden;
+  height: 8px;
+  margin-top: var(--space-md);
+}
+
+.expense-bar-segment {
+  height: 100%;
+  transition: flex var(--duration-normal);
+}
+
+.expense-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs) var(--space-md);
+  justify-content: center;
+  margin-top: var(--space-sm);
+}
+
+.expense-legend-item {
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.expense-legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+
+/* --- Category color indicator --- */
+.cat-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+/* --- +/- counter buttons (wardrobe etc) --- */
+.counter-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.counter-controls .counter-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  background: var(--bg-card-hover);
+  color: var(--text-secondary);
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+}
+
+.counter-controls .counter-btn:active {
+  transform: scale(0.9);
+  background: var(--accent-primary);
+  color: var(--text-inverse);
+}
+
+.counter-controls .counter-value {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* --- Deadline / countdown --- */
+.deadline-tag {
+  font-size: var(--font-xs);
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+
+.deadline-tag.urgent {
+  background: rgba(232, 93, 74, 0.15);
+  color: var(--accent-red);
+}
+
+.deadline-tag.soon {
+  background: rgba(232, 169, 74, 0.15);
+  color: var(--accent-orange);
+}
+
+.deadline-tag.ok {
+  background: rgba(106, 171, 115, 0.15);
+  color: var(--accent-primary);
+}
+
+/* --- Add item button inside widget --- */
+.add-item-btn {
+  display: block;
+  width: 100%;
+  padding: var(--space-md);
+  margin-top: var(--space-sm);
+  background: transparent;
+  border: 1px dashed var(--border-medium);
+  border-radius: var(--radius-sm);
+  color: var(--text-tertiary);
+  font-size: var(--font-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.add-item-btn:active {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  background: rgba(152, 170, 109, 0.05);
+}
+
+/* --- Add category button --- */
+.add-category-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  width: 100%;
+  padding: var(--space-lg);
+  background: transparent;
+  border: 2px dashed var(--border-medium);
+  border-radius: var(--radius-md);
+  color: var(--text-tertiary);
+  font-size: var(--font-sm);
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: var(--space-xl);
+  transition: all var(--duration-fast);
+}
+
+.add-category-btn:active {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  transform: scale(0.98);
+}
+
+/* --- Journal mood selector --- */
+.mood-selector {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+}
+
+.mood-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--border-subtle);
+  background: var(--bg-card);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.mood-btn .mood-emoji {
+  font-size: 24px;
+}
+
+.mood-btn .mood-label {
+  font-size: 9px;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.mood-btn.selected-bad {
+  border-color: var(--mood-bad);
+  background: rgba(232, 93, 74, 0.1);
+}
+
+.mood-btn.selected-ok {
+  border-color: var(--mood-ok);
+  background: rgba(232, 169, 74, 0.1);
+}
+
+.mood-btn.selected-good {
+  border-color: var(--mood-good);
+  background: rgba(106, 171, 115, 0.1);
+}
+
+/* --- Subscription row --- */
+.sub-price {
+  font-weight: 700;
+  font-size: var(--font-md);
+}
+
+.sub-cycle {
+  font-size: var(--font-xs);
+  color: var(--text-tertiary);
+}
+
+/* --- Menu nav buttons --- */
+.menu-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  width: 100%;
+  padding: var(--space-md) var(--space-lg);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: var(--font-md);
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: background var(--duration-fast);
+}
+
+.menu-nav-btn:active {
+  background: var(--bg-card-hover);
+}
+
+.menu-nav-btn.active {
+  background: var(--bg-card-hover);
+  font-weight: 700;
+  color: var(--accent-dark);
+}
+
+.menu-nav-btn span:first-child {
+  width: 24px;
+  text-align: center;
+  font-size: 18px;
+}
+
+/* --- Widget reorder handles --- */
+.reorder-handle {
+  display: none;
+  flex-direction: column;
+  gap: 2px;
+  padding: 4px;
+  cursor: grab;
+}
+
+.reorder-mode .reorder-handle {
+  display: flex;
+}
+
+.reorder-handle span {
+  width: 16px;
+  height: 2px;
+  background: var(--text-tertiary);
+  border-radius: 1px;
+}
+
+/* --- Today timeline dot --- */
+.timeline-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.timeline-dot.active {
+  background: var(--accent-orange);
+  box-shadow: 0 0 6px rgba(232, 169, 74, 0.5);
+}
+
+.timeline-dot.future {
+  background: var(--border-strong);
+}
+
+.timeline-dot.past {
+  background: var(--accent-primary);
+}
