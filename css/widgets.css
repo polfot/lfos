@@ -9,7 +9,7 @@
   margin-bottom: var(--space-md);
   overflow: hidden;
   animation: fadeIn 0.3s var(--ease-out) forwards;
-  border: 1px solid var(--border-subtle);
+  border: 0px solid var(--border-subtle);
 }
 
 .widget.dragging {
@@ -160,12 +160,27 @@
   color: #fff;
 }
 
-.checkbox.priority-high { border-color: var(--priority-high); }
-.checkbox.priority-high.checked { background: var(--priority-high); border-color: var(--priority-high); }
-.checkbox.priority-medium { border-color: var(--priority-medium); }
-.checkbox.priority-medium.checked { background: var(--priority-medium); border-color: var(--priority-medium); }
-.checkbox.priority-low { border-color: var(--priority-low); }
-.checkbox.priority-low.checked { background: var(--priority-low); border-color: var(--priority-low); }
+.checkbox.priority-high {
+  border-color: var(--priority-high);
+}
+.checkbox.priority-high.checked {
+  background: var(--priority-high);
+  border-color: var(--priority-high);
+}
+.checkbox.priority-medium {
+  border-color: var(--priority-medium);
+}
+.checkbox.priority-medium.checked {
+  background: var(--priority-medium);
+  border-color: var(--priority-medium);
+}
+.checkbox.priority-low {
+  border-color: var(--priority-low);
+}
+.checkbox.priority-low.checked {
+  background: var(--priority-low);
+  border-color: var(--priority-low);
+}
 
 /* --- Rating stars --- */
 .rating {
@@ -207,9 +222,15 @@
   flex-shrink: 0;
 }
 
-.mood-dot.mood-bad { background: var(--mood-bad); }
-.mood-dot.mood-ok { background: var(--mood-ok); }
-.mood-dot.mood-good { background: var(--mood-good); }
+.mood-dot.mood-bad {
+  background: var(--mood-bad);
+}
+.mood-dot.mood-ok {
+  background: var(--mood-ok);
+}
+.mood-dot.mood-good {
+  background: var(--mood-good);
+}
 
 /* --- Habit grid --- */
 .habit-grid {

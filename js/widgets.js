@@ -262,6 +262,10 @@ const Widgets = (() => {
       html += _emptyState("No expenses yet");
     }
 
+    if (monthItems.length > todayItems.length) {
+      html += `<div style="text-align:center;padding:var(--space-sm)"><button class="btn-ghost" style="font-size:var(--font-xs);color:var(--text-tertiary)" onclick="Widgets.showAllExpenses('${cat.id}')">View all expenses</button></div>`;
+    }
+
     return html;
   }
 
@@ -392,7 +396,7 @@ const Widgets = (() => {
       const color = statusColor[d.status] || "#93B2BB";
 
       html += `
-        <div style="background:var(--bg-card);border-radius:var(--radius-sm);overflow:hidden;cursor:pointer;position:relative;border:1px solid var(--border-subtle)"
+        <div style="background:var(--bg-card);border-radius:var(--radius-sm);overflow:hidden;cursor:pointer;position:relative;"
              onclick="Widgets.editItem('${cat.id}','${item.id}')">
           ${
             d.photo
@@ -794,6 +798,75 @@ const Widgets = (() => {
     });
   }
 
+  function showAllExpenses(categoryId) {
+    const cat = State.getCategory(categoryId);
+    const items = State.getCategoryItems(categoryId);
+    const COLORS = {
+      Food: "#DDAB63",
+      Transport: "#93B2BB",
+      Entertainment: "#D1745D",
+      Bills: "#455546",
+      Shopping: "#98AA6D",
+      Other: "#E5DECF",
+    };
+
+    // Group by month
+    const months = {};
+    for (const item of items) {
+      const m = (item.data.date || "No date").slice(0, 7);
+      if (!months[m]) months[m] = [];
+      months[m].push(item);
+    }
+
+    // Sort months newest first
+    const sortedMonths = Object.keys(months).sort((a, b) => b.localeCompare(a));
+
+    let html = "";
+    for (const month of sortedMonths) {
+      const monthItems = months[month];
+      const total = monthItems.reduce(
+        (s, i) => s + (parseFloat(i.data.amount) || 0),
+        0,
+      );
+      const label = month === "No date" ? "No date" : month;
+
+      html += `
+        <div style="margin-bottom:var(--space-lg)">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-sm) 0;margin-bottom:var(--space-sm)">
+            <span style="font-weight:700;font-size:var(--font-md)">${label}</span>
+            <span style="font-weight:800;font-size:var(--font-md)">€${total.toFixed(2)}</span>
+          </div>`;
+
+      for (const item of monthItems.sort((a, b) =>
+        (b.data.date || "").localeCompare(a.data.date || ""),
+      )) {
+        const d = item.data;
+        html += `
+          <div class="item-row">
+            <span class="cat-dot" style="background:${COLORS[d.category] || "#98989e"}"></span>
+            <div class="item-content" onclick="Widgets.editItem('${categoryId}','${item.id}')">
+              <div class="item-title">${_esc(d.description || d.category)}</div>
+              <div class="item-subtitle">${d.date || ""}</div>
+            </div>
+            <span style="font-weight:700">€${parseFloat(d.amount || 0).toFixed(2)}</span>
+            <button class="btn-icon" style="width:24px;height:24px;font-size:12px" onclick="Widgets.deleteItem('${categoryId}','${item.id}')">✕</button>
+          </div>`;
+      }
+      html += "</div>";
+    }
+
+    const grandTotal = items.reduce(
+      (s, i) => s + (parseFloat(i.data.amount) || 0),
+      0,
+    );
+    Modal.open({
+      title: `${cat.icon} All Expenses`,
+      body:
+        `<div style="text-align:center;margin-bottom:var(--space-lg);padding:var(--space-md);background:var(--bg-input);border-radius:var(--radius-sm)"><div style="font-size:var(--font-xs);color:var(--text-tertiary)">All Time Total</div><div style="font-size:var(--font-2xl);font-weight:800">€${grandTotal.toFixed(2)}</div></div>` +
+        html,
+    });
+  }
+
   function toggleCollapse(widgetId) {
     const widget = document.getElementById(widgetId);
     if (widget) widget.classList.toggle("collapsed");
@@ -932,6 +1005,7 @@ const Widgets = (() => {
     toggleTaskDone,
     toggleHabit,
     adjustCounter,
+    showAllExpenses,
     toggleCollapse,
     moveWidget,
     hideWidget,
