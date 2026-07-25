@@ -300,6 +300,8 @@ const App = (() => {
           </div>
           <span class="cat-dot" style="background:${cat.color}"></span>
           <button class="btn-icon" style="width:28px;height:28px;font-size:14px"
+                  onclick="event.stopPropagation();App.toggleCategoryVisibility('${cat.id}')">${cat.visible === false ? "👁" : "👁‍🗨"}</button>
+          <button class="btn-icon" style="width:28px;height:28px;font-size:14px"
                   onclick="event.stopPropagation();Schema.openCategoryEditor(State.getCategory('${cat.id}'))">✎</button>
         </div>
       `;
@@ -515,6 +517,21 @@ const App = (() => {
     return el.innerHTML;
   }
 
+  async function toggleCategoryVisibility(catId) {
+    const cats = State.get("categories");
+    const cat = cats.find((c) => c.id === catId);
+    if (!cat) return;
+    const newVisible = cat.visible === false ? true : false;
+    try {
+      await DB.updateCategory(catId, { visible: newVisible });
+      cat.visible = newVisible;
+      State.set("categories", [...cats]);
+      renderCategoriesPage();
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   return {
     init,
     render,
@@ -529,6 +546,7 @@ const App = (() => {
     handleAuth,
     resetConfig,
     runSearch,
+    toggleCategoryVisibility,
     openCategoryView,
     exportData,
     logout,
