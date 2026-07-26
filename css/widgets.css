@@ -1,5 +1,5 @@
 /* ============================================
-   Life OS — Widget Styles
+   Life OS — Widget Styles (Apple-inspired)
    ============================================ */
 
 /* --- Widget card --- */
@@ -8,8 +8,7 @@
   border-radius: var(--radius-md);
   margin-bottom: var(--space-md);
   overflow: hidden;
-  animation: fadeIn 0.3s var(--ease-out) forwards;
-  border: 0px solid var(--border-subtle);
+  animation: fadeIn 0.35s var(--ease-out) forwards;
 }
 
 .widget.dragging {
@@ -18,15 +17,15 @@
 }
 
 .widget.drag-over {
-  border-color: var(--accent-primary);
-  border-style: dashed;
+  outline: 2px dashed var(--accent-primary);
+  outline-offset: -2px;
 }
 
 .widget-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-md) var(--space-lg);
+  padding: var(--space-lg) var(--space-lg) var(--space-sm);
   cursor: grab;
   user-select: none;
   -webkit-user-select: none;
@@ -48,14 +47,15 @@
 
 .widget-title {
   font-size: var(--font-md);
-  font-weight: 700;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 .widget-badge {
-  background: var(--bg-card-hover);
+  background: var(--bg-app);
   color: var(--text-secondary);
   font-size: var(--font-xs);
-  font-weight: 600;
+  font-weight: 500;
   padding: 2px 8px;
   border-radius: 10px;
   margin-left: var(--space-sm);
@@ -74,16 +74,21 @@
   display: none;
 }
 
-/* --- Generic item row --- */
+/* --- Generic item row (iOS grouped list) --- */
 .item-row {
   display: flex;
   align-items: center;
   gap: var(--space-md);
-  padding: var(--space-md);
-  background: var(--bg-card);
-  border-radius: var(--radius-sm);
-  margin-bottom: var(--space-sm);
+  padding: var(--space-md) 0;
+  background: transparent;
+  border-bottom: 0.5px solid var(--border-subtle);
+  margin-bottom: 0;
+  border-radius: 0;
   transition: background var(--duration-fast);
+}
+
+.item-row:last-child {
+  border-bottom: none;
 }
 
 .item-row:active {
@@ -91,7 +96,7 @@
 }
 
 .item-row.done {
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
 .item-row .item-content {
@@ -101,16 +106,16 @@
 
 .item-row .item-title {
   font-size: var(--font-md);
-  font-weight: 500;
+  font-weight: 400;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .item-row .item-subtitle {
-  font-size: var(--font-xs);
+  font-size: var(--font-sm);
   color: var(--text-secondary);
-  margin-top: 2px;
+  margin-top: 1px;
 }
 
 .item-row .item-time {
@@ -131,18 +136,17 @@
   opacity: 1;
 }
 
-/* On mobile, always show actions */
 @media (hover: none) {
   .item-row .item-actions {
     opacity: 1;
   }
 }
 
-/* --- Checkbox custom --- */
+/* --- Checkbox — iOS circle style --- */
 .checkbox {
-  width: 22px;
-  height: 22px;
-  border-radius: 6px;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-full);
   border: 2px solid var(--border-strong);
   display: flex;
   align-items: center;
@@ -150,7 +154,7 @@
   cursor: pointer;
   flex-shrink: 0;
   transition: all var(--duration-fast);
-  font-size: 12px;
+  font-size: 13px;
   color: transparent;
 }
 
@@ -201,15 +205,15 @@
 
 /* --- Progress bar --- */
 .progress-bar {
-  height: 6px;
-  background: var(--bg-card);
-  border-radius: 3px;
+  height: 4px;
+  background: var(--bg-app);
+  border-radius: 2px;
   overflow: hidden;
 }
 
 .progress-bar .progress-fill {
   height: 100%;
-  border-radius: 3px;
+  border-radius: 2px;
   background: var(--accent-primary);
   transition: width 0.4s var(--ease-out);
 }
@@ -222,15 +226,9 @@
   flex-shrink: 0;
 }
 
-.mood-dot.mood-bad {
-  background: var(--mood-bad);
-}
-.mood-dot.mood-ok {
-  background: var(--mood-ok);
-}
-.mood-dot.mood-good {
-  background: var(--mood-good);
-}
+.mood-dot.mood-bad { background: var(--mood-bad); }
+.mood-dot.mood-ok { background: var(--mood-ok); }
+.mood-dot.mood-good { background: var(--mood-good); }
 
 /* --- Habit grid --- */
 .habit-grid {
@@ -248,15 +246,15 @@
 
 .habit-day .day-label {
   font-size: var(--font-xs);
-  color: var(--text-tertiary);
+  color: var(--text-secondary);
+  font-weight: 500;
 }
 
 .habit-day .day-cell {
-  width: 30px;
-  height: 30px;
-  border-radius: var(--radius-sm);
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background: var(--bg-app);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -267,7 +265,8 @@
 }
 
 .habit-day .day-cell.today {
-  border: 2px solid var(--accent-primary);
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 1px;
 }
 
 .habit-day .day-cell.done {
@@ -278,7 +277,7 @@
 /* --- Streak badge --- */
 .streak-badge {
   font-size: var(--font-xs);
-  font-weight: 700;
+  font-weight: 600;
   color: var(--accent-orange);
   display: flex;
   align-items: center;
@@ -289,14 +288,14 @@
 .expense-summary {
   text-align: center;
   padding: var(--space-lg);
-  background: var(--bg-card);
+  background: var(--bg-app);
   border-radius: var(--radius-md);
   margin-bottom: var(--space-md);
 }
 
 .expense-total {
   font-size: var(--font-2xl);
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.02em;
 }
 
@@ -309,9 +308,9 @@
 .expense-bar {
   display: flex;
   gap: 2px;
-  border-radius: 4px;
+  border-radius: 3px;
   overflow: hidden;
-  height: 8px;
+  height: 6px;
   margin-top: var(--space-md);
 }
 
@@ -346,11 +345,11 @@
 .cat-dot {
   width: 10px;
   height: 10px;
-  border-radius: 3px;
+  border-radius: var(--radius-full);
   flex-shrink: 0;
 }
 
-/* --- +/- counter buttons (wardrobe etc) --- */
+/* --- +/- counter buttons --- */
 .counter-controls {
   display: flex;
   align-items: center;
@@ -361,7 +360,7 @@
   width: 28px;
   height: 28px;
   border-radius: var(--radius-full);
-  background: var(--bg-card-hover);
+  background: var(--bg-app);
   color: var(--text-secondary);
   font-size: 16px;
   display: flex;
@@ -372,7 +371,6 @@
 }
 
 .counter-controls .counter-btn:active {
-  transform: scale(0.9);
   background: var(--accent-primary);
   color: var(--text-inverse);
 }
@@ -387,25 +385,25 @@
 /* --- Deadline / countdown --- */
 .deadline-tag {
   font-size: var(--font-xs);
-  font-weight: 600;
-  padding: 2px 8px;
-  border-radius: 10px;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 6px;
   white-space: nowrap;
 }
 
 .deadline-tag.urgent {
-  background: rgba(232, 93, 74, 0.15);
+  background: rgba(255, 59, 48, 0.1);
   color: var(--accent-red);
 }
 
 .deadline-tag.soon {
-  background: rgba(232, 169, 74, 0.15);
+  background: rgba(255, 159, 10, 0.1);
   color: var(--accent-orange);
 }
 
 .deadline-tag.ok {
-  background: rgba(106, 171, 115, 0.15);
-  color: var(--accent-primary);
+  background: rgba(52, 199, 89, 0.1);
+  color: var(--mood-good);
 }
 
 /* --- Add item button inside widget --- */
@@ -413,21 +411,19 @@
   display: block;
   width: 100%;
   padding: var(--space-md);
-  margin-top: var(--space-sm);
+  margin-top: var(--space-xs);
   background: transparent;
-  border: 1px dashed var(--border-medium);
-  border-radius: var(--radius-sm);
-  color: var(--text-tertiary);
-  font-size: var(--font-sm);
-  font-weight: 500;
+  border: none;
+  color: var(--accent-blue);
+  font-size: var(--font-md);
+  font-weight: 400;
   cursor: pointer;
-  transition: all var(--duration-fast);
+  text-align: left;
+  transition: opacity var(--duration-fast);
 }
 
 .add-item-btn:active {
-  border-color: var(--accent-primary);
-  color: var(--accent-primary);
-  background: rgba(152, 170, 109, 0.05);
+  opacity: 0.5;
 }
 
 /* --- Add category button --- */
@@ -438,21 +434,19 @@
   gap: var(--space-sm);
   width: 100%;
   padding: var(--space-lg);
-  background: transparent;
-  border: 2px dashed var(--border-medium);
+  background: var(--bg-surface);
+  border: none;
   border-radius: var(--radius-md);
-  color: var(--text-tertiary);
-  font-size: var(--font-sm);
-  font-weight: 600;
+  color: var(--accent-blue);
+  font-size: var(--font-md);
+  font-weight: 400;
   cursor: pointer;
   margin-bottom: var(--space-xl);
-  transition: all var(--duration-fast);
+  transition: opacity var(--duration-fast);
 }
 
 .add-category-btn:active {
-  border-color: var(--accent-primary);
-  color: var(--accent-primary);
-  transform: scale(0.98);
+  opacity: 0.5;
 }
 
 /* --- Journal mood selector --- */
@@ -463,11 +457,11 @@
 }
 
 .mood-btn {
-  width: 60px;
-  height: 60px;
+  width: 64px;
+  height: 64px;
   border-radius: var(--radius-md);
-  border: 2px solid var(--border-subtle);
-  background: var(--bg-card);
+  border: none;
+  background: var(--bg-app);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -482,36 +476,32 @@
 }
 
 .mood-btn .mood-label {
-  font-size: 9px;
-  color: var(--text-tertiary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-size: 10px;
+  color: var(--text-secondary);
+  font-weight: 500;
 }
 
 .mood-btn.selected-bad {
-  border-color: var(--mood-bad);
-  background: rgba(232, 93, 74, 0.1);
+  background: rgba(255, 59, 48, 0.1);
 }
 
 .mood-btn.selected-ok {
-  border-color: var(--mood-ok);
-  background: rgba(232, 169, 74, 0.1);
+  background: rgba(255, 159, 10, 0.1);
 }
 
 .mood-btn.selected-good {
-  border-color: var(--mood-good);
-  background: rgba(106, 171, 115, 0.1);
+  background: rgba(52, 199, 89, 0.1);
 }
 
 /* --- Subscription row --- */
 .sub-price {
-  font-weight: 700;
+  font-weight: 600;
   font-size: var(--font-md);
 }
 
 .sub-cycle {
   font-size: var(--font-xs);
-  color: var(--text-tertiary);
+  color: var(--text-secondary);
 }
 
 /* --- Menu nav buttons --- */
@@ -525,8 +515,8 @@
   border: none;
   border-radius: var(--radius-sm);
   color: var(--text-primary);
-  font-size: var(--font-md);
-  font-weight: 500;
+  font-size: var(--font-lg);
+  font-weight: 400;
   cursor: pointer;
   text-align: left;
   transition: background var(--duration-fast);
@@ -538,14 +528,13 @@
 
 .menu-nav-btn.active {
   background: var(--bg-card-hover);
-  font-weight: 700;
-  color: var(--accent-dark);
+  font-weight: 600;
 }
 
 .menu-nav-btn span:first-child {
-  width: 24px;
+  width: 28px;
   text-align: center;
-  font-size: 18px;
+  font-size: 20px;
 }
 
 /* --- Widget reorder handles --- */
@@ -578,11 +567,10 @@
 
 .timeline-dot.active {
   background: var(--accent-orange);
-  box-shadow: 0 0 6px rgba(232, 169, 74, 0.5);
 }
 
 .timeline-dot.future {
-  background: var(--border-strong);
+  background: var(--text-tertiary);
 }
 
 .timeline-dot.past {

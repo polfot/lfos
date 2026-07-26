@@ -1,56 +1,56 @@
 /* ============================================
-   Life OS — Design Tokens
+   Life OS — Design Tokens (Apple-inspired)
    ============================================ */
 
 :root {
-  /* Background layers */
-  --bg-app: #ffffff;
-  --bg-surface: #f7f5f2;
-  --bg-card: #ffffff;
-  --bg-card-hover: #f0ede8;
-  --bg-input: #f7f5f2;
-  --bg-modal-overlay: rgba(69, 85, 70, 0.45);
+  /* Background layers — iOS system grays */
+  --bg-app: #F2F2F7;
+  --bg-surface: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: rgba(60, 60, 67, 0.04);
+  --bg-input: rgba(120, 120, 128, 0.08);
+  --bg-modal-overlay: rgba(0, 0, 0, 0.32);
 
-  /* Text */
-  --text-primary: #455546;
-  --text-secondary: #6b7a6c;
-  --text-tertiary: #93a394;
+  /* Text — iOS label hierarchy */
+  --text-primary: #1C1C1E;
+  --text-secondary: #8E8E93;
+  --text-tertiary: #C7C7CC;
   --text-inverse: #ffffff;
 
-  /* Accent colors — from palette */
-  --accent-primary: #98AA6D;
-  --accent-gold: #DDAB63;
-  --accent-terracotta: #D1745D;
-  --accent-blue: #93B2BB;
-  --accent-dark: #455546;
-  --accent-beige: #E5DECF;
+  /* Accent colors */
+  --accent-primary: #455546;
+  --accent-gold: #FF9F0A;
+  --accent-terracotta: #FF6961;
+  --accent-blue: #007AFF;
+  --accent-dark: #1C1C1E;
+  --accent-beige: #F2F2F7;
 
   /* Legacy aliases */
-  --accent-orange: #DDAB63;
-  --accent-red: #D1745D;
-  --accent-purple: #93B2BB;
-  --accent-pink: #D1745D;
-  --accent-cyan: #93B2BB;
+  --accent-orange: #FF9F0A;
+  --accent-red: #FF3B30;
+  --accent-purple: #AF52DE;
+  --accent-pink: #FF2D55;
+  --accent-cyan: #5AC8FA;
 
-  /* Mood colors */
-  --mood-bad: #D1745D;
-  --mood-ok: #DDAB63;
-  --mood-good: #98AA6D;
+  /* Mood colors — iOS system */
+  --mood-bad: #FF3B30;
+  --mood-ok: #FF9F0A;
+  --mood-good: #34C759;
 
   /* Priority */
-  --priority-high: #D1745D;
-  --priority-medium: #DDAB63;
-  --priority-low: #98AA6D;
+  --priority-high: #FF3B30;
+  --priority-medium: #FF9F0A;
+  --priority-low: #34C759;
 
-  /* Borders & dividers */
-  --border-subtle: rgba(69, 85, 70, 0.08);
-  --border-medium: rgba(69, 85, 70, 0.14);
-  --border-strong: rgba(69, 85, 70, 0.22);
+  /* Borders & dividers — iOS separators */
+  --border-subtle: rgba(60, 60, 67, 0.06);
+  --border-medium: rgba(60, 60, 67, 0.12);
+  --border-strong: rgba(60, 60, 67, 0.18);
 
-  /* Radius */
+  /* Radius — Apple standard */
   --radius-sm: 10px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
   --radius-full: 50%;
 
   /* Spacing */
@@ -59,31 +59,31 @@
   --space-md: 12px;
   --space-lg: 16px;
   --space-xl: 24px;
-  --space-2xl: 32px;
+  --space-2xl: 36px;
 
-  /* Typography */
-  --font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* Typography — SF Pro stack */
+  --font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
   --font-mono: 'SF Mono', 'Fira Code', monospace;
-  --font-xs: 11px;
+  --font-xs: 12px;
   --font-sm: 13px;
   --font-md: 15px;
-  --font-lg: 18px;
-  --font-xl: 24px;
-  --font-2xl: 36px;
-  --font-3xl: 48px;
+  --font-lg: 17px;
+  --font-xl: 22px;
+  --font-2xl: 34px;
+  --font-3xl: 34px;
 
-  /* Shadows */
-  --shadow-card: 0 2px 8px rgba(69, 85, 70, 0.08);
-  --shadow-modal: 0 8px 32px rgba(69, 85, 70, 0.15);
-  --shadow-widget: 0 1px 4px rgba(69, 85, 70, 0.06);
+  /* Shadows — barely there */
+  --shadow-card: 0 0.5px 1px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.03);
+  --shadow-modal: 0 10px 40px rgba(0, 0, 0, 0.14);
+  --shadow-widget: none;
 
   /* Transitions */
   --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  --duration-fast: 150ms;
-  --duration-normal: 250ms;
+  --duration-fast: 180ms;
+  --duration-normal: 300ms;
 
   /* Layout */
   --max-width: 428px;
-  --header-height: 200px;
-  --nav-height: 56px;
+  --header-height: auto;
+  --nav-height: 64px;
 }

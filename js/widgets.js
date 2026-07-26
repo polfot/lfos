@@ -19,8 +19,10 @@ const Widgets = (() => {
     const cat = category;
     const widgetId = `widget-${cat.id}`;
 
+    const collapsed = _getCollapsedState()[cat.id] ? " collapsed" : "";
+
     const html = `
-      <div class="widget" id="${widgetId}" data-cat-id="${cat.id}" draggable="true">
+      <div class="widget${collapsed}" id="${widgetId}" data-cat-id="${cat.id}" draggable="true">
         <div class="widget-header" ondblclick="Schema.openCategoryEditor(State.getCategory('${cat.id}'))">
           <div class="widget-header-left">
             <span class="widget-title">${cat.name}</span>
@@ -385,7 +387,7 @@ const Widgets = (() => {
       ),
     );
     let html =
-      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-sm)">';
+      '<div style="display:flex;gap:var(--space-sm);overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:var(--space-sm);-webkit-overflow-scrolling:touch">';
     for (const item of items) {
       const d = item.data;
       const statusColor = {
@@ -396,8 +398,7 @@ const Widgets = (() => {
       const color = statusColor[d.status] || "#93B2BB";
 
       html += `
-        <div style="background:var(--bg-card);border-radius:var(--radius-sm);overflow:hidden;cursor:pointer;position:relative;"
-             onclick="Widgets.editItem('${cat.id}','${item.id}')">
+<div style="background:var(--bg-card);border-radius:var(--radius-sm);overflow:hidden;cursor:pointer;position:relative;min-width:160px;max-width:160px;scroll-snap-align:start;flex-shrink:0"             onclick="Widgets.editItem('${cat.id}','${item.id}')">
           ${
             d.photo
               ? `<div style="width:100%;aspect-ratio:1;background:url('${d.photo}') center/cover"></div>`
@@ -518,7 +519,7 @@ const Widgets = (() => {
   // ---- Card view ----
   function _renderCards(cat, items, schema, titleField, imageField) {
     let html =
-      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-sm)">';
+      '<div style="display:flex;gap:var(--space-sm);overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:var(--space-sm);-webkit-overflow-scrolling:touch">';
     for (const item of items) {
       const d = item.data;
       const title = titleField ? d[titleField.key] || "" : "";
@@ -531,7 +532,7 @@ const Widgets = (() => {
       const status = statusField ? d[statusField.key] || "" : "";
 
       html += `
-        <div style="background:var(--bg-card);border-radius:var(--radius-sm);overflow:hidden;cursor:pointer;position:relative"
+        <div style="background:var(--bg-card);border-radius:var(--radius-sm);overflow:hidden;cursor:pointer;position:relative;min-width:160px;max-width:160px;scroll-snap-align:start;flex-shrink:0"
              onclick="Widgets.editItem('${cat.id}','${item.id}')">
           ${
             img
@@ -867,9 +868,20 @@ const Widgets = (() => {
     });
   }
 
+  function _getCollapsedState() {
+    try { return JSON.parse(localStorage.getItem("lifeos_collapsed") || "{}"); } catch { return {}; }
+  }
+
   function toggleCollapse(widgetId) {
     const widget = document.getElementById(widgetId);
-    if (widget) widget.classList.toggle("collapsed");
+    if (!widget) return;
+    widget.classList.toggle("collapsed");
+    const catId = widget.dataset.catId;
+    if (catId) {
+      const state = _getCollapsedState();
+      state[catId] = widget.classList.contains("collapsed");
+      localStorage.setItem("lifeos_collapsed", JSON.stringify(state));
+    }
   }
 
   // ---- Drag & drop reordering ----

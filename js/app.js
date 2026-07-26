@@ -228,7 +228,23 @@ const App = (() => {
       <div id="page-search" class="page ${currentPage === "search" ? "active" : ""}"></div>
       <div id="page-settings" class="page ${currentPage === "settings" ? "active" : ""}"></div>
 
-      <button class="fab" onclick="App.openMenu()" title="Menu">☰</button>
+      <nav class="bottom-nav">
+        <button class="nav-item ${currentPage === "home" ? "active" : ""}" onclick="App.navigate('home')">
+          <svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>
+        </button>
+        <button class="nav-item ${currentPage === "categories" ? "active" : ""}" onclick="App.navigate('categories')">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+        </button>
+        <button class="nav-item nav-add" onclick="App.quickAdd()">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <button class="nav-item ${currentPage === "search" ? "active" : ""}" onclick="App.navigate('search')">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+        </button>
+        <button class="nav-item ${currentPage === "settings" ? "active" : ""}" onclick="App.navigate('settings')">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 16 0v1"/></svg>
+        </button>
+      </nav>
     `;
 
     switch (currentPage) {
@@ -284,15 +300,13 @@ const App = (() => {
     const categories = State.get("categories");
     const allItems = State.get("items");
 
-    let html = `
-      <h2 class="page-title">Categories</h2>
-      <div style="display:flex;flex-direction:column;gap:var(--space-sm)">
-    `;
+    let html = `<h2 class="page-title">Categories</h2>`;
+    html += `<div style="background:var(--bg-surface);border-radius:var(--radius-md);overflow:hidden">`;
 
     for (const cat of categories) {
       const items = allItems[cat.id] || [];
       html += `
-        <div class="item-row" style="background:var(--bg-surface)" onclick="App.openCategoryView('${cat.id}')">
+        <div class="item-row" style="padding:var(--space-md) var(--space-lg)" onclick="App.openCategoryView('${cat.id}')">
           <span style="font-size:24px">${cat.icon}</span>
           <div class="item-content">
             <div class="item-title">${cat.name}</div>
@@ -307,8 +321,8 @@ const App = (() => {
       `;
     }
 
+    html += `</div>`;
     html += `
-      </div>
       <button class="add-category-btn" style="margin-top:var(--space-lg)" onclick="Schema.openCategoryEditor()">
         + New Category
       </button>
@@ -445,29 +459,10 @@ const App = (() => {
     window.scrollTo(0, 0);
   }
 
-  // ---- Menu ----
-  function openMenu() {
+  // ---- Quick Add ----
+  function quickAdd() {
     const categories = State.get("categories");
-    const currentPage = State.get("currentPage");
-
-    let html = `
-      <div style="display:flex;flex-direction:column;gap:var(--space-xs);margin-bottom:var(--space-lg)">
-        <button class="menu-nav-btn ${currentPage === "home" ? "active" : ""}" onclick="Modal.close();App.navigate('home')">
-          <span>⌂</span> Home
-        </button>
-        <button class="menu-nav-btn ${currentPage === "categories" ? "active" : ""}" onclick="Modal.close();App.navigate('categories')">
-          <span>☰</span> Categories
-        </button>
-        <button class="menu-nav-btn ${currentPage === "search" ? "active" : ""}" onclick="Modal.close();App.navigate('search')">
-          <span>⌕</span> Search
-        </button>
-        <button class="menu-nav-btn ${currentPage === "settings" ? "active" : ""}" onclick="Modal.close();App.navigate('settings')">
-          <span>⚙</span> Settings
-        </button>
-      </div>
-      <div style="font-size:var(--font-xs);font-weight:600;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:1px;margin-bottom:var(--space-sm);padding-left:var(--space-md)">Quick Add</div>
-      <div style="display:flex;flex-direction:column;gap:var(--space-xs)">
-    `;
+    let html = '<div style="display:flex;flex-direction:column;gap:var(--space-xs)">';
     for (const cat of categories) {
       html += `
         <button class="menu-nav-btn" onclick="Modal.close();Widgets.addItem('${cat.id}')">
@@ -481,11 +476,7 @@ const App = (() => {
         </button>
       </div>
     `;
-
-    Modal.open({
-      title: "Menu",
-      body: html,
-    });
+    Modal.open({ title: "Quick Add", body: html });
   }
 
   // ---- Export ----
@@ -537,7 +528,7 @@ const App = (() => {
     render,
     renderDashboard,
     navigate,
-    openMenu,
+    quickAdd,
     loadCategories,
     loadCategoryItems,
     loadHabitLogs,
