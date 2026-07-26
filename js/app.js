@@ -501,13 +501,6 @@ const App = (() => {
     location.reload();
   }
 
-  function _esc(str) {
-    if (typeof str !== "string") return "";
-    const el = document.createElement("span");
-    el.textContent = str;
-    return el.innerHTML;
-  }
-
   async function toggleCategoryVisibility(catId) {
     const cats = State.get("categories");
     const cat = cats.find((c) => c.id === catId);

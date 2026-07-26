@@ -119,8 +119,7 @@ const Today = (() => {
 
     return `
       <div class="header">
-        <div class="header-meta">${monthStr} ${year}</div>
-        <div class="header-meta">${dayName}, ${day}</div>
+        <div class="header-meta">${dayName}, ${monthStr} ${day}</div>
         <div class="header-greeting">${greeting}, Foivos! 👋</div>
         <div class="header-summary">${summaryText}</div>
       </div>

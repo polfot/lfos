@@ -264,11 +264,6 @@ const Modal = (() => {
     reader.readAsDataURL(file);
   }
 
-  function _esc(str) {
-    if (typeof str !== 'string') return str || '';
-    return str.replace(/"/g, '&quot;').replace(/</g, '&lt;');
-  }
-
   return {
     open, close, confirm, buildForm, collectFormData,
     _selectMood, _handleImageUpload,

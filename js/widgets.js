@@ -579,13 +579,6 @@ const Widgets = (() => {
     return `<div class="empty-state"><p>${text}</p></div>`;
   }
 
-  function _esc(str) {
-    if (typeof str !== "string") return "";
-    const el = document.createElement("span");
-    el.textContent = str;
-    return el.innerHTML;
-  }
-
   // ---- Actions ----
   function addItem(categoryId) {
     const cat = State.getCategory(categoryId);
@@ -802,14 +795,7 @@ const Widgets = (() => {
   function showAllExpenses(categoryId) {
     const cat = State.getCategory(categoryId);
     const items = State.getCategoryItems(categoryId);
-    const COLORS = {
-      Food: "#DDAB63",
-      Transport: "#93B2BB",
-      Entertainment: "#D1745D",
-      Bills: "#455546",
-      Shopping: "#98AA6D",
-      Other: "#E5DECF",
-    };
+    const COLORS = EXPENSE_COLORS;
 
     // Group by month
     const months = {};

@@ -51,54 +51,18 @@ const State = (() => {
     return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
   }
 
-  function getTodayItems() {
-    const t = today();
-    const results = [];
-
-    for (const cat of _state.categories) {
-      const items = _state.items[cat.id] || [];
-      const schema = cat.schema || [];
-
-      for (const item of items) {
-        // Check for deadline fields
-        for (const field of schema) {
-          if (field.type === 'date' && item.data[field.key]) {
-            const itemDate = item.data[field.key];
-            if (itemDate === t) {
-              results.push({ item, category: cat, field, type: 'today' });
-            } else if (itemDate < t && !item.data.done) {
-              results.push({ item, category: cat, field, type: 'overdue' });
-            } else if (itemDate > t && itemDate <= _addDays(t, 3)) {
-              results.push({ item, category: cat, field, type: 'upcoming' });
-            }
-          }
-        }
-
-        // Check checkbox (done) status for tasks
-        if (cat.is_builtin && cat.name === 'Tasks') {
-          if (!item.data.done && item.data.deadline) {
-            if (item.data.deadline === t) {
-              results.push({ item, category: cat, type: 'task-today' });
-            }
-          }
-        }
-      }
-    }
-
-    return results;
-  }
-
-  function _addDays(dateStr, days) {
-    const d = new Date(dateStr);
-    d.setDate(d.getDate() + days);
-    return d.toISOString().slice(0, 10);
-  }
-
   function daysUntil(dateStr) {
     const now = new Date(today());
     const target = new Date(dateStr);
     return Math.ceil((target - now) / (1000 * 60 * 60 * 24));
   }
 
-  return { get, set, on, getCategory, getCategoryItems, today, getTodayItems, daysUntil };
+  return { get, set, on, getCategory, getCategoryItems, today, daysUntil };
 })();
+
+function _esc(str) {
+  if (typeof str !== 'string') return str || '';
+  const el = document.createElement('span');
+  el.textContent = str;
+  return el.innerHTML;
+}

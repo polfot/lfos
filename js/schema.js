@@ -73,7 +73,6 @@ const Schema = (() => {
       `,
     });
 
-    _bindFieldEvents();
   }
 
   function _renderEditor(cat) {
@@ -231,10 +230,6 @@ const Schema = (() => {
   function _refreshFields() {
     const container = document.getElementById("schema-fields");
     if (container) container.innerHTML = _renderFields();
-  }
-
-  function _bindFieldEvents() {
-    // Already using inline event handlers for simplicity
   }
 
   function _pickIcon(btn, icon) {

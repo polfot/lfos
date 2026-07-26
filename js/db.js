@@ -113,15 +113,6 @@ const DB = (() => {
     return data || [];
   }
 
-  async function getAllItems() {
-    const { data, error } = await client()
-      .from('items')
-      .select('*, categories(name, icon, schema)')
-      .order('created_at', { ascending: false });
-    if (error) throw error;
-    return data || [];
-  }
-
   async function createItem(categoryId, itemData) {
     const user = await getUser();
     if (!user) throw new Error('Not authenticated. Please sign in again.');
@@ -206,37 +197,11 @@ const DB = (() => {
     }
   }
 
-  // --- Widget Layout ---
-  async function getWidgetLayout() {
-    const { data, error } = await client()
-      .from('widget_layout')
-      .select('*')
-      .order('sort_order', { ascending: true });
-    if (error) throw error;
-    return data || [];
-  }
-
-  async function saveWidgetLayout(layouts) {
-    const user = await getUser();
-    for (const layout of layouts) {
-      await client()
-        .from('widget_layout')
-        .upsert({
-          user_id: user.id,
-          category_id: layout.category_id,
-          sort_order: layout.sort_order,
-          visible: layout.visible ?? true,
-          collapsed: layout.collapsed ?? false,
-        }, { onConflict: 'user_id,category_id' });
-    }
-  }
-
   return {
     init, client, getUser,
     signIn, signUp, signOut, onAuthChange,
     getCategories, createCategory, updateCategory, deleteCategory, reorderCategories,
-    getItems, getAllItems, createItem, updateItem, deleteItem,
+    getItems, createItem, updateItem, deleteItem,
     getHabitLogs, toggleHabitLog,
-    getWidgetLayout, saveWidgetLayout,
   };
 })();
