@@ -351,10 +351,14 @@ const App = (() => {
     const container = document.getElementById("page-search");
     container.innerHTML = `
       <h2 class="page-title">Search</h2>
-      <input type="text" id="search-input" placeholder="Search anything..." oninput="App.runSearch()">
-      <div style="margin-top:var(--space-sm)">
-        <label class="form-label">Filter by date</label>
-        <input type="date" id="search-date" onchange="App.runSearch()">
+      <div style="display:flex;gap:var(--space-sm)">
+        <input type="text" id="search-input" placeholder="Search anything..." oninput="App.runSearch()" style="flex:1">
+        <div style="position:relative;width:44px;flex-shrink:0">
+          <input type="date" id="search-date" onchange="App.runSearch()" style="width:100%;height:100%;padding:0;opacity:0;position:absolute;inset:0;cursor:pointer">
+          <div style="width:44px;height:44px;background:var(--bg-surface);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;pointer-events:none">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+        </div>
       </div>
       <div id="search-results" style="margin-top:var(--space-lg)"></div>
     `;
@@ -378,7 +382,7 @@ const App = (() => {
     for (const cat of categories) {
       const items = allItems[cat.id] || [];
       const schema = cat.schema || [];
-      const titleField = schema[0];
+      const titleField = schema.find((f) => f.type === "text") || schema[0];
 
       const matches = items.filter((item) => {
         let textMatch = true;
@@ -414,7 +418,7 @@ const App = (() => {
         count++;
 
         html += `
-          <div class="item-row" style="background:var(--bg-surface)" onclick="Widgets.editItem('${cat.id}','${item.id}')">
+          <div class="item-row" style="padding:var(--space-md) var(--space-lg)" onclick="Widgets.editItem('${cat.id}','${item.id}')">
             <span>${cat.icon}</span>
             <div class="item-content">
               <div class="item-title">${_esc(title)}</div>
@@ -428,8 +432,10 @@ const App = (() => {
     const header = dateFilter
       ? `<div style="font-size:var(--font-sm);color:var(--text-secondary);margin-bottom:var(--space-md)">${count} item${count !== 1 ? "s" : ""} on ${dateFilter}</div>`
       : "";
-    results.innerHTML =
-      header + (html || '<div class="empty-state"><p>No results</p></div>');
+    const wrapped = html
+      ? `<div style="background:var(--bg-surface);border-radius:var(--radius-md);overflow:hidden">${html}</div>`
+      : '<div class="empty-state"><p>No results</p></div>';
+    results.innerHTML = header + wrapped;
   }
 
   function renderSettingsPage() {
