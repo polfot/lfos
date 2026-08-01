@@ -264,7 +264,7 @@ const Widgets = (() => {
       html += _emptyState("No expenses yet");
     }
 
-    if (monthItems.length > todayItems.length) {
+    if (items.length) {
       html += `<div style="text-align:center;padding:var(--space-sm)"><button class="btn-ghost" style="font-size:var(--font-xs);color:var(--text-tertiary)" onclick="Widgets.showAllExpenses('${cat.id}')">View all expenses</button></div>`;
     }
 
